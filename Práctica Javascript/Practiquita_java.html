@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Validador DNI - Página práctica</title>
+  <link rel="stylesheet" href="./styleestructura.css">
+</head>
+<body>
+  <main class="tarjeta" role="main">
+    <h1>Validador de DNI </h1>
+
+    <form id="formDni" novalidate>
+      <div class="fila-form">
+        <div class="columna-flex">
+          <label for="dni">Número de DNI</label>
+          <input id="dni" name="dni" inputmode="numeric" pattern="\d*" placeholder="12345678" required />
+        </div>
+        <div class="columna-fija">
+          <label for="letra">Letra</label>
+          <input id="letra" name="letra" maxlength="1" placeholder="A" required />
+        </div>
+      </div>
+
+      <div class="fila-botones">
+        <button type="submit" class="boton">Validar</button>
+        <button type="button" id="btnLimpiar" class="boton secundario">Limpiar</button>
+      </div>
+
+      <div id="mensaje" class="resultado" aria-live="polite" hidden></div>
+
+    </form>
+
+  </main>
+
+  <script>
+    (function(){
+      const letrasDni = ['T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E','T'];
+
+      const form = document.getElementById('formDni');
+      const campoDni = document.getElementById('dni');
+      const campoLetra = document.getElementById('letra');
+      const mensaje = document.getElementById('mensaje');
+      const btnLimpiar = document.getElementById('btnLimpiar');
+
+      campoDni.addEventListener('input', e=>{
+        const limpio = e.target.value.replace(/\D+/g, '');
+        if (limpio !== e.target.value) e.target.value = limpio;
+      });
+
+      campoLetra.addEventListener('input', e=>{
+        e.target.value = e.target.value.toUpperCase();
+      });
+
+      btnLimpiar.addEventListener('click', ()=>{
+        form.reset(); mensaje.hidden = true; mensaje.textContent = '';
+      });
+
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        mensaje.hidden = false;
+        mensaje.className = 'resultado';
+
+        const dniTexto = campoDni.value.trim();
+        const letraUsuario = (campoLetra.value || '').trim().toUpperCase();
+        const dniNumero = Number(dniTexto);
+
+        if (isNaN(dniNumero) || (dniNumero < 0 || dniNumero > 99999999)) {
+          mensaje.innerHTML = '<span class="mal">Número no válido.</span> Introduce un número entre 0 y 99,999,999.';
+          return;
+        }
+
+        const resto = dniNumero % 23;
+        const letraCorrecta = letrasDni[resto];
+
+        if (!letraUsuario || letraUsuario.length !== 1 || !/^[A-Z]$/.test(letraUsuario)){
+          mensaje.innerHTML = '<span class="mal">Letra inválida.</span> Introduce una sola letra (A-Z).';
+          return;
+        }
+
+        if (letraUsuario !== letraCorrecta) {
+          mensaje.innerHTML = `<span class="mal">Letra incorrecta.</span> Para el número <strong>${dniNumero}</strong> la letra correcta es <strong>${letraCorrecta}</strong>, no ${letraUsuario}.`;
+        } else {
+          mensaje.innerHTML = `<span class="bien">Correcto.</span> El número <strong>${dniNumero}</strong> y la letra <strong>${letraCorrecta}</strong> coinciden.`;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

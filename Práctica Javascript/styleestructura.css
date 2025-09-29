@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #eceff1, #cfd8dc);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* === Tarjeta principal === */
+.tarjeta {
+  background: #fff;
+  border-radius: 14px;
+  padding: 30px 25px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.tarjeta h1 {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #37474f;
+}
+
+/* === Campos de formulario === */
+.fila-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.columna-flex {
+  flex: 1;
+}
+
+.columna-fija {
+  width: 80px;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #455a64;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b0bec5;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0277bd;
+  box-shadow: 0 0 0 3px rgba(2,119,189,0.2);
+}
+
+/* === Botones === */
+.fila-botones {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.boton {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background-color: #0277bd;
+  color: #fff;
+  transition: background-color 0.25s;
+}
+
+.boton:hover {
+  background-color: #01579b;
+}
+
+.boton.secundario {
+  background-color: #90a4ae;
+}
+
+.boton.secundario:hover {
+  background-color: #607d8b;
+}
+
+.resultado {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.resultado .bien {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.resultado .mal {
+  color: #c62828;
+  font-weight: bold;
+}
